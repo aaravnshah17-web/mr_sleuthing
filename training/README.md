@@ -7,8 +7,8 @@ reproducibility; the reconstructions themselves are not distributed here.
    * `pool/<subject>.nii.gz`: skull-stripped original volumes, and
    * `recons/dcnn/`, `recons/zssr/`, `recons/ppn/`: Model A, B and C reconstructions of those subjects at R = 4 and 8.
 
-   It extracts central axial and sagittal slices (axial only for Model C), applies the same preprocessing as the
-   detector, and assigns each subject to the train or test split deterministically, so no subject is in both.
+   It extracts central axial and sagittal slices (axial only for Model C), applies the detector's preprocessing
+   (with each reconstructed slice masked by the brain mask of its paired original), and assigns each subject to the train or test split deterministically, so no subject is in both.
 2. **`meta_train_v2.py`** trains and evaluates the ResNet-18 detector: the joint deployment model (saved as
    `meta_joint_deploy.pt`), continual learning with experience replay and EWC, a naive fine-tuning baseline, and
    leave-one-model-out generalization.

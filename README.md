@@ -65,7 +65,9 @@ save_overlay(result, "scan_gradcam.png")             # most suspicious slice + G
 
 Inputs can be NIfTI volumes (`.nii`, `.nii.gz`, reoriented automatically) or single 2-D slices
 (`.nii`, `.npy`, `.png`, `.jpg`). For a volume, the detector scores the central slices in the chosen plane and
-reports their mean. **Use `--plane sagittal` (or `both`) for reconstructors that work along the slice axis**,
+reports their mean. Inputs are expected to be skull-stripped, like the training data. Preprocessing follows
+training, except that the brain mask is computed from the input itself (in training it came from the paired
+original, which a real test case does not have); on the bundled example this changes `P(recon)` by at most 0.002. **Use `--plane sagittal` (or `both`) for reconstructors that work along the slice axis**,
 such as super-resolution networks: their interpolation is often invisible in-plane and obvious through-plane.
 
 ## Performance

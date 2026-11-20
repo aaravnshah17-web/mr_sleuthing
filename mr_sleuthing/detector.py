@@ -6,9 +6,11 @@ model) at accelerations R = 4 and 8, in axial and sagittal slices. Given a brain
 probability that the image was produced by a DL reconstruction, P(recon), and a Grad-CAM map of where the
 evidence lies. No reference (fully sampled) image is needed.
 
-Preprocessing reproduces training exactly: reorientation to RAS, radiological display orientation, resize to
-320 x 320, 1st to 99th percentile normalization, a brain mask at 0.03 of the normalized intensity, and ImageNet
-normalization of a 3-channel copy.
+Preprocessing follows training: reorientation to RAS, radiological display orientation, resize to 320 x 320,
+1st to 99th percentile normalization, a brain mask at 0.03 of the normalized intensity, and ImageNet normalization
+of a 3-channel copy. One difference is unavoidable: in training, each reconstructed slice was masked with the brain
+mask of its paired original, which is not available at test time, so here the mask is computed from the input image
+itself. On the bundled held-out example the two choices change P(recon) by at most 0.002.
 """
 from __future__ import annotations
 
